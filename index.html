@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vault - Safe Cloud Storage</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Firebase SDKs (v10+) -->
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</head>
+<body class="light-mode">
+    <header>
+        <div class="logo">My Vault 🔒</div>
+        <button id="lang-toggle">English</button>
+        <button id="theme-toggle">🌙</button>
+    </header>
+
+    <!-- Landing Section -->
+    <main id="landing-page" class="container">
+        <h1 class="txt-main">আপনার ব্যক্তিগত ফাইল রাখুন নিরাপদ ও সুরক্ষিত</h1>
+        <p class="txt-sub">১ জিবি ফ্রি স্টোরেজ, যেকোনো ডিভাইস থেকে অ্যাক্সেস করুন।</p>
+        
+        <div class="auth-buttons">
+            <button id="btn-show-login" class="btn-primary">লগইন করুন</button>
+            <button id="btn-show-register" class="btn-secondary">নতুন অ্যাকাউন্ট</button>
+        </div>
+    </main>
+
+    <!-- Auth Modal (Login / Register) -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <!-- Login Form -->
+            <form id="login-form">
+                <h2>লগইন</h2>
+                <input type="email" id="login-email" placeholder="ইমেইল" required>
+                <input type="password" id="login-password" placeholder="পাসওয়ার্ড" required>
+                <button type="submit">লগইন</button>
+                <button type="button" id="btn-google-login">Google দিয়ে সাইন-ইন</button>
+                <p id="forgot-pass" style="cursor:pointer; color:blue;">পাসওয়ার্ড ভুলে গেছেন? (রিকভারি ফি প্রযোজ্য)</p>
+            </form>
+
+            <!-- Password Recovery Fee Notice -->
+            <div id="recovery-section" class="hidden">
+                <p>পাসওয়ার্ড রিকভারি করতে ১০০ টাকা ফি বিকাশ মার্চেন্টে প্রদান করুন।</p>
+                <a href="https://bkash-merchant-link..." target="_blank" class="btn-bkash">বিকাশ দিয়ে পে করুন</a>
+                <p>পেমেন্টের পর ট্রানজেকশন আইডি দিয়ে ইমেইল ওটিপি ভেরিফাই করুন।</p>
+                <input type="text" id="trx-id" placeholder="বিকাশ Transaction ID">
+                <button id="btn-verify-payment">ভেরিফাই ও ওটিপি পাঠান</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
