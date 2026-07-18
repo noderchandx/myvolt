@@ -45,7 +45,7 @@ const APP_CONFIG = {
   FREE_STORAGE_LIMIT_BYTES: 1 * 1024 * 1024 * 1024, // 1 GB ফ্রি স্টোরেজ (হিসাব রাখা হয় Firestore-এ)
   MAX_FILE_SIZE_BYTES: 25 * 1024 * 1024, // Cloudinary ফ্রি টায়ারে একক ফাইলের সর্বোচ্চ সীমা (~25MB, রেসোর্স টাইপ ভেদে পরিবর্তনযোগ্য)
   ADMIN_EMAILS: [
-    "admin@myvault.com" // এখানে অ্যাডমিন ইমেইল যোগ করুন
+    "noderchandx@gmail.com" // এখানে অ্যাডমিন ইমেইল যোগ করুন
   ],
   // পাসওয়ার্ড রিকভারি ফি (ভবিষ্যতে বিকাশ পেমেন্ট গেটওয়ে যুক্ত হবে)
   PASSWORD_RECOVERY_FEE_BDT: 20,
