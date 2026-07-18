@@ -7,12 +7,13 @@
    ========================================================= */
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyD08a5mv8LYakFOFKPKR2Ne00beiDh5_lY",
+  authDomain: "myvolt-4b93d.firebaseapp.com",
+  projectId: "myvolt-4b93d",
+  storageBucket: "myvolt-4b93d.firebasestorage.app",
+  messagingSenderId: "776336942648",
+  appId: "1:776336942648:web:ee10e07b53169023f668cd",
+  measurementId: "G-75Q7JJG48S"
 };
 
 // Firebase App ইনিশিয়ালাইজ করা (compat SDK — GitHub Pages এ কোনো build tool ছাড়াই কাজ করে)
