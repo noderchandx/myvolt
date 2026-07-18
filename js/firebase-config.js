@@ -34,8 +34,8 @@ const db = firebase.firestore();
       Signing Mode = Unsigned করে Save করুন, প্রিসেট নামটি বসান
    --------------------------------------------------------- */
 const CLOUDINARY_CONFIG = {
-  CLOUD_NAME: "YOUR_CLOUD_NAME",          // যেমন: "dxxxxxx"
-  UPLOAD_PRESET: "myvault_unsigned"       // আপনার unsigned upload preset নাম
+  CLOUD_NAME: "rzfqcddu",          // যেমন: "dxxxxxx"
+  UPLOAD_PRESET: "myvolt907"       // আপনার unsigned upload preset নাম
 };
 
 /* ---------------------------------------------------------
