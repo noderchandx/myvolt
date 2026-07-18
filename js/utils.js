@@ -90,3 +90,7 @@ function requireAuth(callback){
 function isAdminEmail(email){
   return APP_CONFIG.ADMIN_EMAILS.includes(email);
 }
+// লগআউট (dashboard.html সহ সব পেজ থেকে ব্যবহারযোগ্য)
+function logout(){
+  auth.signOut().then(()=> window.location.href = "login.html");
+}
