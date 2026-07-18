@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Vault — নিরাপদ ব্যক্তিগত ক্লাউড স্টোরেজ</title>
+<meta name="description" content="My Vault — আপনার ছবি, PDF ও ডকুমেন্ট নিরাপদে সংরক্ষণ ও শেয়ার করুন।">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%2316233F%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22none%22 stroke=%22%23D4A537%22 stroke-width=%226%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <svg class="dial" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" fill="#16233F"/>
+        <circle cx="50" cy="50" r="24" fill="none" stroke="#D4A537" stroke-width="6"/>
+        <circle cx="50" cy="26" r="4" fill="#D4A537"/>
+      </svg>
+      My Vault
+    </a>
+    <nav class="nav-links">
+      <a href="#features" data-i18n="nav_features">সুবিধাসমূহ</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="langToggle" class="icon-btn" title="Language">EN</button>
+      <button id="themeToggle" class="icon-btn" title="Theme">🌙</button>
+      <a href="login.html" class="btn btn-outline btn-sm" data-i18n="nav_login">লগইন</a>
+      <a href="register.html" class="btn btn-primary btn-sm" data-i18n="nav_register">রেজিস্টার</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="container">
+    <div>
+      <h1><span data-i18n="hero_title_1">আপনার ফাইল, নিরাপদে</span><br><span data-i18n="hero_title_2">সবসময়, সবখানে।</span></h1>
+      <p data-i18n="hero_desc">My Vault হলো একটি ব্যক্তিগত ক্লাউড স্টোরেজ যেখানে আপনি ছবি, PDF, ডকুমেন্ট নিরাপদে সংরক্ষণ ও শেয়ার করতে পারবেন — কোনো ঝামেলা ছাড়াই।</p>
+      <div class="hero-cta">
+        <a href="register.html" class="btn btn-accent" data-i18n="hero_cta_start">ফ্রি শুরু করুন</a>
+        <a href="login.html" class="btn btn-outline" data-i18n="hero_cta_login">লগইন করুন</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <!-- সিগনেচার ভল্ট-ডায়াল ইলাস্ট্রেশন -->
+      <svg class="vault-dial" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="180" fill="var(--bg-soft)"/>
+        <circle cx="200" cy="200" r="140" fill="var(--primary)"/>
+        <circle cx="200" cy="200" r="95" fill="none" stroke="var(--accent)" stroke-width="10"/>
+        <circle cx="200" cy="200" r="60" fill="var(--bg-elevated)"/>
+        <rect x="185" y="150" width="30" height="45" rx="6" fill="var(--primary-2)"/>
+        <circle cx="200" cy="215" r="10" fill="var(--accent)"/>
+        <g stroke="var(--accent)" stroke-width="4">
+          <line x1="200" y1="60" x2="200" y2="90"/>
+          <line x1="200" y1="310" x2="200" y2="340"/>
+          <line x1="60" y1="200" x2="90" y2="200"/>
+          <line x1="310" y1="200" x2="340" y2="200"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Features ===== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <h2 data-i18n="feat_title">কেন My Vault?</h2>
+      <p data-i18n="feat_sub">আপনার প্রয়োজনীয় সব ফিচার এক জায়গায়</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card feature-card"><div class="ic">💾</div><h3 data-i18n="f1_t">১ জিবি ফ্রি স্টোরেজ</h3><p data-i18n="f1_d">প্রতিটি অ্যাকাউন্টে শুরুতেই ১ জিবি ফ্রি জায়গা।</p></div>
+      <div class="card feature-card"><div class="ic">📁</div><h3 data-i18n="f2_t">ফোল্ডার সিস্টেম</h3><p data-i18n="f2_d">ফাইল গুছিয়ে রাখুন ফোল্ডার তৈরি করে।</p></div>
+      <div class="card feature-card"><div class="ic">🔗</div><h3 data-i18n="f3_t">শেয়ার লিংক</h3><p data-i18n="f3_d">যেকোনো ফাইলের পাবলিক লিংক তৈরি করে শেয়ার করুন।</p></div>
+      <div class="card feature-card"><div class="ic">🔒</div><h3 data-i18n="f4_t">সম্পূর্ণ নিরাপদ</h3><p data-i18n="f4_d">শুধু আপনি দেখতে পারবেন আপনার ফাইল।</p></div>
+      <div class="card feature-card"><div class="ic">📱</div><h3 data-i18n="f5_t">যেকোনো ডিভাইস</h3><p data-i18n="f5_d">মোবাইল, ট্যাব বা কম্পিউটার — সব জায়গায় কাজ করে।</p></div>
+      <div class="card feature-card"><div class="ic">⚡</div><h3 data-i18n="f6_t">গুগল দিয়ে লগইন</h3><p data-i18n="f6_d">এক ক্লিকে গুগল অ্যাকাউন্ট দিয়ে প্রবেশ করুন।</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <span>© <span id="year"></span> My Vault. <span data-i18n="footer_rights">সর্বস্বত্ব সংরক্ষিত।</span></span>
+    <span>Made with 🔐 for secure storage</span>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="js/i18n.js"></script>
+</body>
+</html>

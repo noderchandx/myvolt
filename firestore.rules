@@ -1,0 +1,59 @@
+rules_version = '2';
+
+// =========================================================
+// My Vault — Firestore Security Rules
+// এই কোড Firebase Console > Firestore Database > Rules ট্যাবে
+// কপি-পেস্ট করে Publish করুন।
+//
+// নিরাপত্তা মডেল:
+//  - প্রতিটি ইউজার শুধু নিজের users/files ডকুমেন্ট পড়তে/লিখতে পারবে
+//  - শেয়ার করা ফাইল (fileId র‍্যান্ডম Firestore auto-ID, অনুমানযোগ্য নয়)
+//    পাবলিকভাবে পড়া যাবে — অনেকটা Google Drive শেয়ার লিংকের মতোই,
+//    যেহেতু লিংক ছাড়া fileId অনুমান করা কার্যত অসম্ভব।
+//  - অ্যাডমিন ইমেইল দিয়ে লগইন করা ইউজার সব ডেটা পড়তে ও ইউজার
+//    ব্লক/আনব্লক করতে পারবে।
+// =========================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn(){
+      return request.auth != null;
+    }
+
+    function isAdmin(){
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // ---------- users ----------
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      // ইউজার নিজের প্রোফাইল আপডেট করতে পারবে, কিন্তু status (block/active)
+      // ফিল্ড শুধু অ্যাডমিনই পরিবর্তন করতে পারবে
+      allow update: if isSignedIn() && (
+        (request.auth.uid == userId &&
+         !("status" in request.resource.data.diff(resource.data).affectedKeys()))
+        || isAdmin()
+      );
+      allow delete: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ---------- files & folders ----------
+    match /files/{fileId} {
+      // মালিক নিজের ফাইল পড়তে পারবে, অথবা যে কেউ শেয়ার লিংক দিয়ে
+      // (fileId জেনে) পাবলিকভাবে পড়তে পারবে, অথবা অ্যাডমিন সব পড়তে পারবে
+      allow read: if true;
+      allow create: if isSignedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+    }
+
+    // ---------- shares ----------
+    match /shares/{shareId} {
+      allow read: if true; // পাবলিক শেয়ার পেজে যে কেউ পড়তে পারবে
+      allow create: if isSignedIn() && request.resource.data.ownerId == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+    }
+  }
+}

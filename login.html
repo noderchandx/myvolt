@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>লগইন — My Vault</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <svg class="dial" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#16233F"/><circle cx="50" cy="50" r="24" fill="none" stroke="#D4A537" stroke-width="6"/></svg>
+      My Vault
+    </a>
+    <div class="nav-actions">
+      <button id="langToggle" class="icon-btn">EN</button>
+      <button id="themeToggle" class="icon-btn">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1 data-i18n="login_title">লগইন করুন</h1>
+    <p class="auth-sub" data-i18n="login_sub">আপনার ভল্টে প্রবেশ করুন</p>
+
+    <div id="msgBox" class="msg"></div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label data-i18n="lbl_email">ইমেইল</label>
+        <input type="email" id="loginEmail" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label data-i18n="lbl_password">পাসওয়ার্ড</label>
+        <input type="password" id="loginPassword" required placeholder="••••••••">
+        <div class="field-hint"><a href="#" id="forgotLink" style="color:var(--primary-2);" data-i18n="forgot_pass">পাসওয়ার্ড ভুলে গেছেন?</a></div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+        <span data-i18n="btn_login">লগইন</span>
+      </button>
+    </form>
+
+    <div class="divider"><span data-i18n="or_text">অথবা</span></div>
+    <button id="googleBtn" class="btn btn-outline btn-block">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4c-7.4 0-13.8 4.1-17.1 10.2z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.4C29.6 35.2 26.9 36 24 36c-5.3 0-9.7-3.1-11.3-7.5l-6.5 5C9.9 39.9 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.5l6.6 5.4C40.8 36.4 44 30.9 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+      <span data-i18n="btn_google">গুগল দিয়ে চালিয়ে যান</span>
+    </button>
+
+    <p class="auth-foot">
+      <span data-i18n="no_account">অ্যাকাউন্ট নেই?</span>
+      <a href="register.html" style="color:var(--primary-2); font-weight:600;" data-i18n="create_one">একটি তৈরি করুন</a>
+    </p>
+  </div>
+</div>
+
+<!-- পাসওয়ার্ড রিকভারি মোডাল -->
+<div class="modal-overlay" id="forgotModal">
+  <div class="modal">
+    <h3 data-i18n="forgot_pass">পাসওয়ার্ড ভুলে গেছেন?</h3>
+    <p style="color:var(--text-muted); font-size:.88rem; margin-bottom:14px;" id="forgotDesc">
+      আপনার ইমেইলে একটি পাসওয়ার্ড রিসেট লিংক পাঠানো হবে।
+    </p>
+    <div class="field">
+      <label data-i18n="lbl_email">ইমেইল</label>
+      <input type="email" id="forgotEmail" placeholder="you@example.com">
+    </div>
+    <p style="font-size:.78rem; color:var(--warning); margin-top:6px;">
+      ⓘ নোট: ফ্রি ইমেইল রিসেট লিংক ব্যবহার করা যাবে। ভবিষ্যতে দ্রুত/সাপোর্টেড রিকভারির জন্য সামান্য ফি (৳20) দিয়ে বিকাশ এর মাধ্যমে সাপোর্ট রিকোয়েস্ট করার অপশন যুক্ত হবে।
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="closeForgot">বাতিল</button>
+      <button class="btn btn-primary" id="sendResetBtn">লিংক পাঠান</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/cloudinary.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

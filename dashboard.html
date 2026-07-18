@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ড্যাশবোর্ড — My Vault</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader"><div class="spinner"></div></div>
+
+<div class="app-shell" id="appShell" style="display:none;">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="brand">
+      <svg class="dial" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#16233F"/><circle cx="50" cy="50" r="24" fill="none" stroke="#D4A537" stroke-width="6"/></svg>
+      My Vault
+    </a>
+
+    <nav class="sidebar-nav">
+      <a class="active" data-view="files" data-i18n="nav_myfiles">আমার ফাইল</a>
+      <a data-view="shared" data-i18n="nav_shared">শেয়ারড লিংক</a>
+      <a data-view="profile" data-i18n="nav_profile">প্রোফাইল</a>
+      <a id="adminLink" href="admin.html" style="display:none;" data-i18n="nav_admin">অ্যাডমিন প্যানেল</a>
+      <a id="logoutLink" data-i18n="nav_logout">লগআউট</a>
+    </nav>
+
+    <div class="storage-box">
+      <div style="display:flex; justify-content:space-between; font-size:.82rem; font-weight:600;">
+        <span data-i18n="dash_used">ব্যবহৃত</span>
+        <span id="storageText">0 MB / 1 GB</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="storageBar" style="width:0%"></div></div>
+      <div style="font-size:.76rem; color:var(--text-muted);"><span id="storagePercent">0</span>% ব্যবহৃত</div>
+    </div>
+
+    <div style="margin-top:auto; display:flex; gap:8px;">
+      <button id="langToggle" class="icon-btn">EN</button>
+      <button id="themeToggle" class="icon-btn">🌙</button>
+    </div>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main class="main">
+    <div class="topbar">
+      <button class="icon-btn" id="menuToggle" style="display:none;">☰</button>
+      <div class="search-box">
+        <span class="si">🔍</span>
+        <input type="text" id="searchInput" data-i18n-placeholder="search_ph" placeholder="ফাইল খুঁজুন...">
+      </div>
+      <div class="profile-chip" id="profileChip">
+        <img id="chipAvatar" src="" alt="avatar">
+        <span id="chipName" style="font-weight:600; font-size:.9rem;"></span>
+      </div>
+    </div>
+
+    <!-- ===== VIEW: Files ===== -->
+    <div id="view-files">
+      <div class="stats-row">
+        <div class="stat-card"><div class="num" id="statUsed">0 MB</div><div class="lbl" data-i18n="dash_used">ব্যবহৃত</div></div>
+        <div class="stat-card"><div class="num" id="statAvailable">1 GB</div><div class="lbl" data-i18n="dash_available">উপলব্ধ</div></div>
+        <div class="stat-card"><div class="num" id="statFiles">0</div><div class="lbl" data-i18n="dash_total_files">মোট ফাইল</div></div>
+        <div class="stat-card"><div class="num" id="statFolders">0</div><div class="lbl">ফোল্ডার</div></div>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn btn-accent" id="uploadBtn" data-i18n="dash_upload">আপলোড করুন</button>
+        <button class="btn btn-outline" id="newFolderBtn" data-i18n="dash_new_folder">নতুন ফোল্ডার</button>
+        <input type="file" id="fileInput" multiple style="display:none">
+      </div>
+
+      <div class="breadcrumb" id="breadcrumb">
+        <span data-folder="root">🏠 My Vault</span>
+      </div>
+
+      <div id="uploadArea"></div>
+
+      <div class="file-grid" id="fileGrid"></div>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="ic">📂</div>
+        <p data-i18n="empty_files">এখনো কোনো ফাইল নেই। আপলোড করে শুরু করুন!</p>
+      </div>
+    </div>
+
+    <!-- ===== VIEW: Shared links ===== -->
+    <div id="view-shared" style="display:none;">
+      <h2 style="font-family:var(--font-display); margin-bottom:16px;" data-i18n="nav_shared">শেয়ারড লিংক</h2>
+      <div class="file-grid" id="sharedGrid"></div>
+      <div class="empty-state" id="sharedEmpty" style="display:none;">
+        <div class="ic">🔗</div>
+        <p>এখনো কোনো ফাইল শেয়ার করা হয়নি।</p>
+      </div>
+    </div>
+
+    <!-- ===== VIEW: Profile ===== -->
+    <div id="view-profile" style="display:none;">
+      <h2 style="font-family:var(--font-display); margin-bottom:16px;" data-i18n="nav_profile">প্রোফাইল</h2>
+      <div class="card" style="max-width:520px;">
+        <div class="avatar-pick">
+          <img id="profileAvatar" src="" alt="avatar">
+          <div>
+            <label for="profilePhotoInput" class="btn btn-outline btn-sm">ছবি পরিবর্তন</label>
+            <input type="file" id="profilePhotoInput" accept="image/*" style="display:none">
+          </div>
+        </div>
+        <div class="field">
+          <label>নাম</label>
+          <input type="text" id="profileName">
+        </div>
+        <div class="field">
+          <label>মোবাইল নম্বর</label>
+          <input type="text" id="profileMobile">
+        </div>
+        <div class="field">
+          <label>ইমেইল</label>
+          <input type="email" id="profileEmail" disabled>
+        </div>
+        <button class="btn btn-primary" id="saveProfileBtn">প্রোফাইল সংরক্ষণ করুন</button>
+
+        <hr style="border-color:var(--border); margin:24px 0;">
+
+        <h3 style="font-family:var(--font-display); font-size:1rem; margin-bottom:12px;">পাসওয়ার্ড পরিবর্তন</h3>
+        <div class="field"><label>নতুন পাসওয়ার্ড</label><input type="password" id="newPassword" minlength="6"></div>
+        <button class="btn btn-outline" id="changePasswordBtn">পাসওয়ার্ড পরিবর্তন করুন</button>
+
+        <hr style="border-color:var(--border); margin:24px 0;">
+
+        <h3 style="font-family:var(--font-display); font-size:1rem; margin-bottom:12px; color:var(--danger);">অ্যাকাউন্ট ডিলিট</h3>
+        <p style="font-size:.85rem; color:var(--text-muted); margin-bottom:12px;">এই কাজটি ফিরিয়ে আনা যাবে না। আপনার সব তথ্য মুছে যাবে।</p>
+        <button class="btn btn-danger" id="deleteAccountBtn">অ্যাকাউন্ট ডিলিট করুন</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===== Modals ===== -->
+<div class="modal-overlay" id="folderModal">
+  <div class="modal">
+    <h3 data-i18n="dash_new_folder">নতুন ফোল্ডার</h3>
+    <div class="field"><label>ফোল্ডারের নাম</label><input type="text" id="folderNameInput" placeholder="যেমন: ছবি"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close="folderModal">বাতিল</button>
+      <button class="btn btn-primary" id="createFolderBtn">তৈরি করুন</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="renameModal">
+  <div class="modal">
+    <h3>নাম পরিবর্তন</h3>
+    <div class="field"><label>নতুন নাম</label><input type="text" id="renameInput"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close="renameModal">বাতিল</button>
+      <button class="btn btn-primary" id="confirmRenameBtn">সংরক্ষণ</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="shareModal">
+  <div class="modal">
+    <h3 data-i18n="menu_share">শেয়ার লিংক</h3>
+    <div class="field">
+      <label>এই লিংকটি যে কেউ ব্যবহার করে ফাইলটি দেখতে পারবে</label>
+      <input type="text" id="shareLinkInput" readonly>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close="shareModal">বন্ধ করুন</button>
+      <button class="btn btn-primary" id="copyShareBtn">লিংক কপি করুন</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteConfirmModal">
+  <div class="modal">
+    <h3>নিশ্চিত করুন</h3>
+    <p style="color:var(--text-muted); font-size:.9rem;" id="deleteConfirmText">আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close="deleteConfirmModal">বাতিল</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">ডিলিট করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/cloudinary.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
